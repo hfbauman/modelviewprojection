@@ -24,7 +24,26 @@
 # Demonstrate having a camera space, and how to think about the transformations
 # differently.
 #
-# eog ../images/demo10.png TODO - describe this
+# eog ../images/demo10.png
+
+
+# |=======================================
+# |Keyboard Input |Action
+# |w              |Move Left Paddle Up
+# |s              |Move Left Paddle Down
+# |i              |Move Right Paddle Up
+# |k              |Move Right Paddle Down
+# |               |
+# |d              |Increase Left Paddle's Rotation
+# |a              |Decrease Left Paddle's Rotation
+# |l              |Increase Right Paddle's Rotation
+# |j              |Decrease Right Paddle's Rotation
+# |               |
+# |UP             |Move the camera up, moving the objects down
+# |DOWN           |Move the camera down, moving the objects up
+# |LEFT           |Move the camera left, moving the objects right
+# |RIGHT          |Move the camera right, moving the objects left
+# |=======================================
 
 
 import sys
@@ -233,6 +252,18 @@ while not glfw.window_should_close(window):
                                  .translate(tx=paddle1.input_offset_x,
                                             ty=paddle1.input_offset_y)
 
+        # NEW - camera space.  The coordinates of the object relative to
+        # the camera.  Notice that the translation from world space
+        # to camera space is the negative value of the camera's x and
+        # y position.
+        # If you view the camera as fixed, where NDC is relative to it,
+        # the world has moved in the opposite direction of the camera.
+        # If you view the camera space as being defined relative to
+        # world space, then we need to put the origin of the camera
+        # space at the origin of the world space, and as such,
+        # the transformations needed to be applied to the data
+        # are the inverse of the tranforamiotns from world
+        # space to camera space.  See eog ../images/demo10.png
         camera_space = world_space.translate(tx=-camera_x,
                                              ty=-camera_y)
         ndc_space = camera_space.scale(scale_x=1.0/100.0,

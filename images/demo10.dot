@@ -13,6 +13,6 @@ digraph {
     ndc [label = "NDC"];
     p1 -> ws  [label="f4",weight="0.2"];
     p2 -> ws [label="f3",weight="0.2"];
-    cs -> ws [label="inverse(f2)",weight="0.2"];
+    cs -> ws [label="f2",weight="0.2"];
     cs -> ndc [label="f1",weight="0.2"];
 }
